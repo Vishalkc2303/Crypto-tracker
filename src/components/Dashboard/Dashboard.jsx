@@ -4,6 +4,7 @@ import { UserContext } from "../../context/userContext";
 import { authService } from "../../services/authService";
 import { watchlistService } from "../../services/WatchlistService";
 import { CoinDetail } from "../../pages/Cointdetail";
+import { coinApi } from "../Common/ConstantLink";
 
 const handleLogout = async () => {
   const result = await authService.logout();
@@ -36,7 +37,7 @@ export const Dashboard = () => {
         setError("");
 
         const response = await fetch(
-          "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false&price_change_percentage=24h,7d"
+          `${coinApi}/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false&price_change_percentage=24h,7d`
         );
 
         if (!response.ok) {

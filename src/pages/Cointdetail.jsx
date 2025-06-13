@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { TrendingUp, TrendingDown, LogOut, Star, Search, ArrowLeft, ExternalLink, Activity, DollarSign, BarChart3 } from "lucide-react";
-
+import { coinApi } from "../components/Common/ConstantLink";
 // Mock UserContext for demo
 const UserContext = React.createContext({
   user: { name: "Demo User", email: "demo@example.com" }
@@ -25,13 +25,13 @@ const handleLogout = async () => {
         
         // Fetch detailed coin data
         const detailResponse = await fetch(
-          `https://api.coingecko.com/api/v3/coins/${coin.id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false`
+          `${coinApi}/${coin.id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false`
         );
         const detailData = await detailResponse.json();
         
         // Fetch price history (7 days)
         const historyResponse = await fetch(
-          `https://api.coingecko.com/api/v3/coins/${coin.id}/market_chart?vs_currency=usd&days=7&interval=daily`
+          `${coinApi}/${coin.id}/market_chart?vs_currency=usd&days=7&interval=daily`
         );
         const historyData = await historyResponse.json();
         

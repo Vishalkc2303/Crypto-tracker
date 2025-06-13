@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { TrendingUp, TrendingDown, Star, Trash2, RefreshCw, Search, AlertCircle } from "lucide-react";
 import { UserContext } from "../context/userContext";
-import { watchlistService } from "../services/watchlistService";
+import { watchlistService } from "../services/WatchlistService";
 
 export const WatchListPage = () => {
   const { user, isAuthenticated } = useContext(UserContext);

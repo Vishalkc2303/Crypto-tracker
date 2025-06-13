@@ -1,4 +1,5 @@
-const API_BASE_URL = 'http://localhost:8080/api';
+// const API_BASE_URL = 'http://localhost:8080/api';
+import { baseUriApi,coinApi } from "../components/Common/ConstantLink";
 
 // Helper to extract token from cookies
 // const getTokenFromCookie = () => {
@@ -20,7 +21,7 @@ export class FavoriteService {
     async addFavorite(favoriteData) {
         try {
             const token = getTokenFromCookie();
-            const response = await fetch(`${API_BASE_URL}/favorites`, {
+            const response = await fetch(`${baseUriApi}/favorites`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -44,7 +45,7 @@ export class FavoriteService {
     async removeFavorite(userId, coinId) {
         try {
             const token = getTokenFromCookie();
-            const response = await fetch(`${API_BASE_URL}/favorites/${userId}/${coinId}`, {
+            const response = await fetch(`${baseUriApi}/favorites/${userId}/${coinId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -72,7 +73,7 @@ export class FavoriteService {
                 throw new Error('No auth token found in cookies');
             }
 
-            const response = await fetch(`${API_BASE_URL}/favorites/user/${userId}`, {
+            const response = await fetch(`${baseUriApi}/favorites/user/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -107,7 +108,7 @@ export class FavoriteService {
             const coinIds = favorites.map(fav => fav.coinId).join(',');
 
             const marketResponse = await fetch(
-                `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${coinIds}&order=market_cap_desc&sparkline=false&price_change_percentage=24h,7d`
+                `${coinApi}/markets?vs_currency=usd&ids=${coinIds}&order=market_cap_desc&sparkline=false&price_change_percentage=24h,7d`
             );
 
             if (!marketResponse.ok) {
@@ -134,7 +135,7 @@ export class FavoriteService {
     async isFavorite(userId, coinId) {
         try {
             const token = getTokenFromCookie();
-            const response = await fetch(`${API_BASE_URL}/favorites/${userId}/${coinId}/exists`, {
+            const response = await fetch(`${baseUriApi}/favorites/${userId}/${coinId}/exists`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -156,7 +157,7 @@ export class FavoriteService {
     async addMultipleFavorites(userId, coinIds) {
         try {
             const token = getTokenFromCookie();
-            const response = await fetch(`${API_BASE_URL}/favorites/bulk`, {
+            const response = await fetch(`${baseUriApi}/favorites/bulk`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -183,7 +184,7 @@ export class FavoriteService {
     async getFavoriteStats(userId) {
         try {
             const token = getTokenFromCookie();
-            const response = await fetch(`${API_BASE_URL}/favorites/user/${userId}/stats`, {
+            const response = await fetch(`${baseUriApi}/favorites/user/${userId}/stats`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`

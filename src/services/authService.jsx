@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080';
+import { baseUri } from "../components/Common/ConstantLink";
 
 function getTokenFromCookie() {
   const match = document.cookie.match(new RegExp('(^| )token=([^;]+)'));
@@ -8,7 +8,7 @@ function getTokenFromCookie() {
 export const authService = {
   async login(email, password) {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+      const response = await fetch(`${baseUri}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export const authService = {
 
   async register(name, email, password) {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+      const response = await fetch(`${baseUri}/api/auth/register`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -65,7 +65,7 @@ export const authService = {
 
       if (!token) return { success: false };
 
-      const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
+      const response = await fetch(`${baseUri}/api/auth/me`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -88,7 +88,7 @@ export const authService = {
     try {
       const token = getTokenFromCookie();
 
-      await fetch(`${API_BASE_URL}/api/auth/logout`, {
+      await fetch(`${baseUri}/api/auth/logout`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

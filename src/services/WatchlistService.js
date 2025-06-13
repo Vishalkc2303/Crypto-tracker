@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080/api';
+import { baseUriApi,coinApi } from "../components/Common/ConstantLink";
 
 // Helper to extract token from cookies
 const getTokenFromCookie = () => {
@@ -10,7 +10,7 @@ export class WatchlistService {
     async addToWatchlist(userId, coinId) {
         try {
             const token = getTokenFromCookie();
-            const response = await fetch(`${API_BASE_URL}/watchlist/add`, {
+            const response = await fetch(`${baseUriApi}/watchlist/add`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export class WatchlistService {
     async removeFromWatchlist(userId, coinId) {
         try {
             const token = getTokenFromCookie();
-            const response = await fetch(`${API_BASE_URL}/watchlist/remove/${userId}/${coinId}`, {
+            const response = await fetch(`${baseUriApi}/watchlist/remove/${userId}/${coinId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -61,7 +61,7 @@ export class WatchlistService {
                 throw new Error('No auth token found in cookies');
             }
 
-            const response = await fetch(`${API_BASE_URL}/watchlist/user/${userId}`, {
+            const response = await fetch(`${baseUriApi}/watchlist/user/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -87,7 +87,7 @@ export class WatchlistService {
     async getUserWatchlistCoinIds(userId) {
         try {
             const token = getTokenFromCookie();
-            const response = await fetch(`${API_BASE_URL}/watchlist/user/${userId}/coins`, {
+            const response = await fetch(`${baseUriApi}/watchlist/user/${userId}/coins`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -109,7 +109,7 @@ export class WatchlistService {
     async toggleWatchlist(userId, coinId) {
         try {
             const token = getTokenFromCookie();
-            const response = await fetch(`${API_BASE_URL}/watchlist/toggle`, {
+            const response = await fetch(`${baseUriApi}/watchlist/toggle`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ export class WatchlistService {
     async isInWatchlist(userId, coinId) {
         try {
             const token = getTokenFromCookie();
-            const response = await fetch(`${API_BASE_URL}/watchlist/check/${userId}/${coinId}`, {
+            const response = await fetch(`${baseUriApi}/watchlist/check/${userId}/${coinId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -164,7 +164,7 @@ export class WatchlistService {
             // Fetch market data for these coins from CoinGecko
             const coinIdsString = coinIds.join(',');
             const marketResponse = await fetch(
-                `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${coinIdsString}&order=market_cap_desc&sparkline=false&price_change_percentage=24h,7d`
+                `${coinApi}/markets?vs_currency=usd&ids=${coinIdsString}&order=market_cap_desc&sparkline=false&price_change_percentage=24h,7d`
             );
 
             if (!marketResponse.ok) {
@@ -182,7 +182,7 @@ export class WatchlistService {
     async getWatchlistStats(userId) {
         try {
             const token = getTokenFromCookie();
-            const response = await fetch(`${API_BASE_URL}/watchlist/user/${userId}/stats`, {
+            const response = await fetch(`${baseUriApi}/watchlist/user/${userId}/stats`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -204,7 +204,7 @@ export class WatchlistService {
     async addMultipleToWatchlist(userId, coinIds) {
         try {
             const token = getTokenFromCookie();
-            const response = await fetch(`${API_BASE_URL}/watchlist/bulk-add`, {
+            const response = await fetch(`${baseUriApi}/watchlist/bulk-add`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -228,7 +228,7 @@ export class WatchlistService {
     async clearWatchlist(userId) {
         try {
             const token = getTokenFromCookie();
-            const response = await fetch(`${API_BASE_URL}/watchlist/user/${userId}/clear`, {
+            const response = await fetch(`${baseUriApi}/watchlist/user/${userId}/clear`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`

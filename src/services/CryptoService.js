@@ -1,14 +1,14 @@
 // services/cryptoService.js
 
-// const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
-const API_BASE_URL = 'http://localhost:8080/api'; // Removed the environment variable
+// const baseUriApi = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+import { baseUriApi } from "../components/Common/ConstantLink"; // Removed the environment variable
 
 export class CryptoService {
   
   // Get all cryptocurrencies
   async getAllCryptocurrencies() {
     try {
-      const response = await fetch(`${API_BASE_URL}/crypto/all`, {
+      const response = await fetch(`${baseUriApi}/crypto/all`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -38,7 +38,7 @@ export class CryptoService {
   // Get cryptocurrency by ID
   async getCryptocurrencyById(id) {
     try {
-      const response = await fetch(`${API_BASE_URL}/crypto/${id}`, {
+      const response = await fetch(`${baseUriApi}/crypto/${id}`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -68,7 +68,7 @@ export class CryptoService {
   // Search cryptocurrencies by symbol
   async searchBySymbol(symbol) {
     try {
-      const response = await fetch(`${API_BASE_URL}/crypto/search/symbol/${symbol}`, {
+      const response = await fetch(`${baseUriApi}/crypto/search/symbol/${symbol}`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -98,7 +98,7 @@ export class CryptoService {
   // Search cryptocurrencies by name
   async searchByName(name) {
     try {
-      const response = await fetch(`${API_BASE_URL}/crypto/search/name/${name}`, {
+      const response = await fetch(`${baseUriApi}/crypto/search/name/${name}`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -128,7 +128,7 @@ export class CryptoService {
   // Get top cryptocurrencies by market cap
   async getTopByMarketCap(limit = 10) {
     try {
-      const response = await fetch(`${API_BASE_URL}/crypto/top/market-cap?limit=${limit}`, {
+      const response = await fetch(`${baseUriApi}/crypto/top/market-cap?limit=${limit}`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -158,7 +158,7 @@ export class CryptoService {
   // Get top cryptocurrencies by volume
   async getTopByVolume(limit = 10) {
     try {
-      const response = await fetch(`${API_BASE_URL}/crypto/top/volume?limit=${limit}`, {
+      const response = await fetch(`${baseUriApi}/crypto/top/volume?limit=${limit}`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -188,7 +188,7 @@ export class CryptoService {
   // Refresh cryptocurrency data
   async refreshData() {
     try {
-      const response = await fetch(`${API_BASE_URL}/crypto/refresh`, {
+      const response = await fetch(`${baseUriApi}/crypto/refresh`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -217,7 +217,7 @@ export class CryptoService {
   // Get user's favorite cryptocurrencies
   async getFavorites() {
     try {
-      const response = await fetch(`${API_BASE_URL}/favorites`, {
+      const response = await fetch(`${baseUriApi}/favorites`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -247,7 +247,7 @@ export class CryptoService {
   // Add cryptocurrency to favorites
   async addToFavorites(cryptoId) {
     try {
-      const response = await fetch(`${API_BASE_URL}/favorites/${cryptoId}`, {
+      const response = await fetch(`${baseUriApi}/favorites/${cryptoId}`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -276,7 +276,7 @@ export class CryptoService {
   // Remove cryptocurrency from favorites
   async removeFromFavorites(cryptoId) {
     try {
-      const response = await fetch(`${API_BASE_URL}/favorites/${cryptoId}`, {
+      const response = await fetch(`${baseUriApi}/favorites/${cryptoId}`, {
         method: 'DELETE',
         credentials: 'include',
         headers: {
@@ -303,7 +303,7 @@ export class CryptoService {
   // Toggle favorite status
   async toggleFavorite(cryptoId) {
     try {
-      const response = await fetch(`${API_BASE_URL}/favorites/${cryptoId}/toggle`, {
+      const response = await fetch(`${baseUriApi}/favorites/${cryptoId}/toggle`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -424,7 +424,7 @@ export class CryptoService {
   async batchFetch(requests) {
     try {
       const promises = requests.map(request => 
-        fetch(`${API_BASE_URL}${request.endpoint}`, {
+        fetch(`${baseUriApi}${request.endpoint}`, {
           method: request.method || 'GET',
           credentials: 'include',
           headers: {

@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
+import { baseUri } from "../components/Common/ConstantLink";
 
-const baseUri = "http://localhost:8080";
 
 export const UserContext = createContext();
 
